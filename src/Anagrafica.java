@@ -1,8 +1,4 @@
-import sun.security.krb5.internal.crypto.Des;
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,7 +13,7 @@ public class Anagrafica {
     public static String addTo;
     public static File fileName = new File("resources/anagrafica");
     public static Path filePath = Paths.get(fileName.toString());
-    public static String alphanumericPattern = "^[a-zA-Z0-9]*$";
+    public static String alphanumericPattern = "^[a-zA-Z0-9\\-\\s]+$";
 
     public static boolean createFile() throws IOException {
         String bytes = "";
@@ -47,6 +43,12 @@ public class Anagrafica {
             Main.log("0: Esci dal programma");
             System.out.print("> ");
             String input = scanner.nextLine();
+
+            if("2".equals(input) || "3".equals(input) || "4".equals(input)){
+                Main.log("");
+                Main.log("Funzione non ancora implementata!");
+                Thread.sleep(1000);
+            }
 
             if("0".equals(input)) {
                 Main.log("Ciao Ciao!");
@@ -84,7 +86,7 @@ public class Anagrafica {
                 Main.log("");
                 Main.log("Immettere codice causale (MAX 5):");
                 System.out.print("> ");
-                input1 = scanner.next();
+                input1 = scanner.nextLine();
                 if(input1.toString().length() <= 5 && input1.matches(alphanumericPattern)){
                     PK_anag = input1.toCharArray();
                 } else {
@@ -98,7 +100,7 @@ public class Anagrafica {
                 Main.log("");
                 Main.log("Descrizione causale (MAX 30):");
                 System.out.print("> ");
-                input2 = scanner.next();
+                input2 = scanner.nextLine();
                 if(input2.toString().length() <= 30 && input2.matches(alphanumericPattern)){
                     Descrizione_anag = input2.toCharArray();
                 } else {
