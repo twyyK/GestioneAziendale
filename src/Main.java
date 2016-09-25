@@ -24,7 +24,7 @@ public class Main {
         return false;
     }
 
-    public static void menu() throws InterruptedException {
+    public static void menu() throws InterruptedException, IOException {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
