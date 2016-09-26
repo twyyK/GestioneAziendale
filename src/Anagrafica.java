@@ -4,25 +4,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
-import java.util.concurrent.SynchronousQueue;
 
 public class Anagrafica {
-    public static char[] PK_anag;
+    public static char[] PK_anag; //Codice alfanumerico univoco della causale
     public static char[] Descrizione_anag;
-    public static char[] Tipo_anag;
-    public static String addTo;
-    public static File fileName = new File("resources/anagrafica");
-    public static Path filePath = Paths.get(fileName.toString());
-    public static String alphanumericPattern = "^[a-zA-Z0-9\\-\\s]+$";
-    public static boolean codeModify;
-    public static boolean descModify;
-    public static boolean typeModify;
+    public static char[] Tipo_anag; //Entrata / Uscita
+    public static String addTo; //Stringa utilizzata per aggiungere le causali al file
+    public static File fileName = new File("resources/anagrafica"); //Definisce il file Anagrafica
+    public static Path filePath = Paths.get(fileName.toString()); //Definisce il percorso del file Anagrafica
+    public static String alphanumericPattern = "^[a-zA-Z0-9\\-\\s]+$"; //Stringa Regex: utilizzata per filtrare i caratteri alfanumerici e spazi
+    public static boolean codeModify; //Stabilisce se la modifica del codice ha avuto successo
+    public static boolean descModify; //Stabilisce se la modifica della descrizione ha avuto successo
+    public static boolean typeModify; //Stabilisce se la modifica della tipologia ha avuto successo
 
     public static boolean createFile() throws IOException {
         String bytes = "";
-        byte[] write = bytes.getBytes();
+        byte[] write = bytes.getBytes(); //Salva i bytes della stringa nel byte array
         if(!fileName.exists()){
-            Path filePath = Paths.get(fileName.toString());
+            Path filePath = Paths.get(fileName.toString()); //Converte il percorso in stringa
             Files.write(filePath, write); // Creare il File
             Main.log("File \"anagrafica\" creato con successo in " + fileName.toString());
             return true;
@@ -100,6 +99,7 @@ public class Anagrafica {
                 Main.log("Immettere codice causale (MAX 5):");
                 System.out.print("> ");
                 input1 = scanner.nextLine();
+                //Se la stringa "Printbytes" che contiene il file Anagrafica, non contiene il codice causale emesso dall'utente crea una nuova causale
                 if(input1.toString().length() <= 5 && input1.matches(alphanumericPattern) && !printBytes.contains(input1)){
                     PK_anag = input1.toCharArray();
                 } else {
@@ -146,8 +146,8 @@ public class Anagrafica {
                 }
             }
 
-            if(PK_anag != null || Descrizione_anag != null || Tipo_anag != null){
-                String PK_anagString = String.valueOf(PK_anag);
+            if(PK_anag != null && Descrizione_anag != null && Tipo_anag != null){
+                String PK_anagString = String.valueOf(PK_anag); //Converte da char array a stringa
                 String Descrizione_anagString = String.valueOf(Descrizione_anag);
                 String Tipo_anagString = String.valueOf(Tipo_anag);
                 Main.log("Aggiunta causale con:");
@@ -212,7 +212,7 @@ public class Anagrafica {
                     while((currentLine = reader.readLine()) != null){
                         if (currentLine.contains(input1+" |")){
                             n++;
-                            continue;
+                            continue; //Salta la parte sottostante e continua il giro
                         }
                         writer.write(currentLine + System.getProperty("line.separator"));
                     }
@@ -306,7 +306,7 @@ public class Anagrafica {
 
             while((currentLine = reader.readLine()) != null){
                 if (currentLine.contains(input1+" |")){
-                    String[] lineModify = currentLine.split(" \\| ");
+                    String[] lineModify = currentLine.split(" \\| "); //Regex: Divide la stringa in array
                     Main.log("Cosa vuoi modificare (Codice,Descrizione,Tipo)?");
                     String input2 = scanner.nextLine();
                     Main.log("Sostituirlo con?");
