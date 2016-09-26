@@ -57,7 +57,7 @@ public class Anagrafica {
             }
 
             if("0".equals(input)) {
-                Main.log("Ciao Ciao!");
+                Main.log("Arrivederci!");
                 break;
             }
 
@@ -315,16 +315,22 @@ public class Anagrafica {
                         if(input3.length() <= 5 && input3.matches(alphanumericPattern) && !printBytes.contains(input3)){
                             lineModify[0] = input3;
                             codeModify = true;
+                        } else {
+                            Main.log("Qualcosa non va :/");
                         }
                     } else if(input2.equalsIgnoreCase("descrizione") || input2.equalsIgnoreCase("d")){
                         if(input3.length() <= 30 && input3.matches(alphanumericPattern)){
                             lineModify[1] = input3;
                             descModify = true;
+                        } else {
+                            Main.log("Qualcosa non va :/");
                         }
                     } else if(input2.equalsIgnoreCase("tipo") || input2.equalsIgnoreCase("t")){
                         if(input3.equalsIgnoreCase("E") && input3.matches(alphanumericPattern) || input3.equalsIgnoreCase("U") && input3.matches(alphanumericPattern)){
                             lineModify[2] = input3;
                             typeModify = true;
+                        } else {
+                            Main.log("Qualcosa non va :/");
                         }
                     }
                     writer.write(lineModify[0] + " | " + lineModify[1] + " | " + lineModify[2].toUpperCase() + System.getProperty("line.separator"));

@@ -39,7 +39,7 @@ public class Main {
             String input = scanner.nextLine();
 
             if("0".equals(input)) {
-                log("Ciao Ciao!");
+                log("Arrivederci!");
                 break;
             }
 
