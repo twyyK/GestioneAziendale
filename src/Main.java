@@ -51,10 +51,25 @@ public class Main {
             if("2".equals(input) || "3".equals(input)){
                 log("");
                 log("Funzione non ancora implementata!");
-                Thread.sleep(1000);
+                keyContinue();
+            }
+
+            if(input.equals("test")){ // Menù nascosto per i test
+                // Non c'è nulla per adesso
             }
         }
 
         scanner.close();
+    }
+
+    public static void keyContinue(){
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            Main.log("Premere invio per continuare...");
+            String input = scanner.nextLine();
+            if(input.matches(".") || input.isEmpty()){
+                break;
+            }
+        }
     }
 }
