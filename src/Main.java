@@ -7,6 +7,7 @@ public class Main {
         log("Programma di Gestione Aziendale by Riccardo Belletti | Classe 5° INB");
         createResourcesDir();
         Anagrafica.createFile();
+        Parametri.createFile();
         menu();
     }
 
@@ -48,10 +49,15 @@ public class Main {
                 break;
             }
 
-            if("2".equals(input) || "3".equals(input)){
+            if("2".equals(input)){
                 log("");
                 log("Funzione non ancora implementata!");
                 keyContinue();
+            }
+
+            if("3".equals(input)){
+                Parametri.menu();
+                break;
             }
 
             if(input.equals("test")){ // Menù nascosto per i test
