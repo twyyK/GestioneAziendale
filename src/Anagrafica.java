@@ -32,7 +32,7 @@ public class Anagrafica {
     public static void menu() throws InterruptedException, IOException {
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        loop: while (true) {
 
             Main.log("Menù Anagrafica:");
             Main.log("1: Aggiunge una nuova causale.");
@@ -40,44 +40,39 @@ public class Anagrafica {
             Main.log("3: Modifica una causale.");
             Main.log("4: Ricerca una determinata causale, tramite il tipo.");
             Main.log("5: Stampa tutte le causali.");
-            Main.log("6: Ritorna indietro");
+            Main.log("9: Ritorna indietro");
             Main.log("0: Esci dal programma");
             System.out.print("> ");
             String input = scanner.nextLine();
 
-            if("3".equals(input)){
-                modify();
-                break;
-            }
-
-            if("4".equals(input)){
-                stampa_Tipo();
-                break;
-            }
-
-            if("0".equals(input)) {
-                Main.log("Arrivederci!");
-                break;
-            }
-
-            if("1".equals(input)){
-                add();
-                break;
-            }
-
-            if("6".equals(input)){
-                Main.menu();
-                break;
-            }
-
-            if("5".equals(input)){
-                print();
-                break;
-            }
-
-            if("2".equals(input)){
-                delete();
-                break;
+            switch (input){
+                case "0":
+                    Main.log("Arrivederci!");
+                    System.exit(1);
+                case "9":
+                    Main.menu();
+                    break loop;
+                case "1":
+                    add();
+                    break loop;
+                case "2":
+                    delete();
+                    break loop;
+                case "3":
+                    modify();
+                    break loop;
+                case "4":
+                    stampa_Tipo();
+                    break loop;
+                case "5":
+                    print();
+                    break loop;
+                default:
+                    Main.log("");
+                    Main.log("Funzione non disponibile!");
+                    Main.keyContinue();
+                    menu();
+                    break loop;
             }
         }
         scanner.close();

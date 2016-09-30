@@ -8,6 +8,7 @@ public class Main {
         createResourcesDir();
         Anagrafica.createFile();
         Parametri.createFile();
+        Movimenti.createFile();
         menu();
     }
 
@@ -50,9 +51,8 @@ public class Main {
             }
 
             if("2".equals(input)){
-                log("");
-                log("Funzione non ancora implementata!");
-                keyContinue();
+                Movimenti.menu();
+                break;
             }
 
             if("3".equals(input)){
