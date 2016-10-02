@@ -301,38 +301,52 @@ public class Movimenti {
                     String[] lineModify = currentLine.split(" \\| "); //Regex: Divide la stringa in array
                     Main.log("Cosa vuoi modificare (Data,Causale,Valore,Descrizione,CodiceIVA)?");
                     String input2 = scanner.nextLine();
-                    Main.log("Sostituirlo con?");
-                    String input3 = scanner.nextLine();
                     if(input2.equalsIgnoreCase("data")){
+                        Main.log("Sostituirlo con?");
+                        String input3 = scanner.nextLine();
                         if(input3.matches(datePattern) && input3.length() <= 10){
                             lineModify[1] = input3;
                         } else {
                             Main.log("Qualcosa non va :/");
                         }
                     } else if(input2.equalsIgnoreCase("causale")){
+                        Main.log("Sostituirlo con?");
+                        String input3 = scanner.nextLine();
                         if(input3.length() <= 5 && input3.matches(alphanumericPattern) && fileAnagrafica.contains(input3)){
                             lineModify[2] = input3;
                         } else {
                             Main.log("Qualcosa non va :/");
                         }
                     } else if(input2.equalsIgnoreCase("valore")){
+                        Main.log("Sostituirlo con?");
+                        String input3 = scanner.nextLine();
                         if(isInteger(input3)){
                             lineModify[3] = input3;
                         } else {
                             Main.log("Qualcosa non va :/");
                         }
                     } else if(input2.equalsIgnoreCase("descrizione")){
+                        Main.log("Sostituirlo con?");
+                        String input3 = scanner.nextLine();
                         if(input3.length() <= 30 && input3.matches(alphanumericDescPattern)){
                             lineModify[4] = input3;
                         } else {
                             Main.log("Qualcosa non va :/");
                         }
                     } else if(input2.equalsIgnoreCase("codiceiva")){
+                        Main.log("Sostituirlo con?");
+                        String input3 = scanner.nextLine();
                         if(isInteger(input3) && fileParametri.contains(input3+" |")){
                             lineModify[5] = input3;
                         } else {
                             Main.log("Qualcosa non va :/");
                         }
+                    } else {
+                        tempFileName.delete();
+                        Main.log("Devi inserire uno di questi valori \"Data,Causale,Valore,Descrizione,CodiceIVA\"!");
+                        Main.keyContinue();
+                        menu();
+                        break;
                     }
                     writer.write(lineModify[0] + " | " + lineModify[1] + " | " + lineModify[2] + " | " + lineModify[3] + " | " + lineModify[4] + " | " + lineModify[5] + System.getProperty("line.separator"));
                 } else {
