@@ -13,6 +13,7 @@ public class Anagrafica {
     public static File fileName = new File("resources/anagrafica"); //Definisce il file Anagrafica
     public static Path filePath = Paths.get(fileName.toString()); //Definisce il percorso del file Anagrafica
     public static String alphanumericPattern = "^[a-zA-Z0-9\\-\\s]+$"; //Stringa Regex: utilizzata per filtrare i caratteri alfanumerici e spazi
+    public static String alphanumericDescPattern = "^[a-zA-Z0-9\\-\\s\\/\\.]+$";
     public static boolean codeModify; //Stabilisce se la modifica del codice ha avuto successo
     public static boolean descModify; //Stabilisce se la modifica della descrizione ha avuto successo
     public static boolean typeModify; //Stabilisce se la modifica della tipologia ha avuto successo
@@ -119,7 +120,7 @@ public class Anagrafica {
                 Main.log("Descrizione causale (MAX 30):");
                 System.out.print("> ");
                 input2 = scanner.nextLine();
-                if(input2.toString().length() <= 30 && input2.matches(alphanumericPattern)){
+                if(input2.toString().length() <= 30 && input2.matches(alphanumericDescPattern)){
                     Descrizione_anag = input2.toCharArray();
                 } else {
                     add();
@@ -314,7 +315,7 @@ public class Anagrafica {
                             Main.log("Qualcosa non va :/");
                         }
                     } else if(input2.equalsIgnoreCase("descrizione") || input2.equalsIgnoreCase("d")){
-                        if(input3.length() <= 30 && input3.matches(alphanumericPattern)){
+                        if(input3.length() <= 30 && input3.matches(alphanumericDescPattern)){
                             lineModify[1] = input3;
                             descModify = true;
                         } else {

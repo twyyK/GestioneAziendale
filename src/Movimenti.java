@@ -13,10 +13,11 @@ public class Movimenti {
     public static String dataMov;
     public static String causaleMov;
     public static String descrizioneMov;
-    public static int ivaMov = -1;
+    public static String ivaMov;
     public static File fileName = new File("resources/movimenti"); //Definisce il file Anagrafica
     public static Path filePath = Paths.get(fileName.toString()); //Definisce il percorso del file Anagrafica
     public static String alphanumericPattern = "^[a-zA-Z0-9\\-\\s]+$"; //Stringa Regex: utilizzata per filtrare i caratteri alfanumerici e spazi
+    public static String alphanumericDescPattern = "^[a-zA-Z0-9\\-\\s\\/\\.]+$";
     public static String datePattern = "(0[1-9]|1[0-9]|2[0-9]|3[0-1]|[1-9])\\/([1-9]|0[1-9]|1[0-2])\\/[0-9]{4}"; //Stringa Regex: utilizzata per controllare se la data va bene
 
     public static boolean createFile() throws IOException {
@@ -111,17 +112,17 @@ public class Movimenti {
                 }
 
                 // Impostare la data del movimento
-                if(dataMov == null){
+                if(dataMov == null) {
                     Main.log("Impostare la data di oggi o manuale? ([o]ggi/[m]anuale):");
                     input1 = scanner.nextLine();
-                    if(input1.equals("oggi") || input1.equals("o")){
+                    if (input1.equals("oggi") || input1.equals("o")) {
                         Date date = Calendar.getInstance().getTime();
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                         dataMov = sdf.format(date);
-                    } else if(input1.equals("manuale") || input1.equals("m")){
+                    } else if (input1.equals("manuale") || input1.equals("m")) {
                         Main.log("Inserire la data (dd/MM/yyyy):");
                         input2 = scanner.nextLine();
-                        if(input2.matches(datePattern) && input2.length() <= 10){
+                        if (input2.matches(datePattern) && input2.length() <= 10) {
                             dataMov = input2;
                         } else {
                             Main.log("Il formato della data non è corretto!");
@@ -135,6 +136,7 @@ public class Movimenti {
                         add();
                         break;
                     }
+                }
 
                 if(causaleMov == null){
                     Main.log("Inserire codice causale:");
@@ -165,7 +167,7 @@ public class Movimenti {
                 if(descrizioneMov == null){
                     Main.log("Inserire una descrizione:");
                     input5 = scanner.nextLine();
-                    if(input5.length() <= 30 && input5.matches(alphanumericPattern)){
+                    if(input5.length() <= 30 && input5.matches(alphanumericDescPattern)){
                         descrizioneMov = input5;
                     } else {
                         Main.log("La descrizione non è valida.");
@@ -175,11 +177,11 @@ public class Movimenti {
                     }
                 }
 
-                if(ivaMov == -1){
+                if(ivaMov == null){
                     Main.log("Inserire codice IVA:");
                     input6 =  scanner.nextLine();
-                    if(isInteger(input6) && fileParametri.contains(input6+" |")){
-                        ivaMov = Integer.parseInt(input6);
+                    if(input6.length() <= 5 && input6.matches(alphanumericPattern) && fileParametri.contains(input6+" |")){
+                        ivaMov = input6;
                     } else {
                         Main.log("Il codice IVA non è valido.");
                         Main.keyContinue();
@@ -188,7 +190,7 @@ public class Movimenti {
                     }
                 }
 
-                if(idMov != -1 && dataMov != null && causaleMov != null && valoreMov != -1 && descrizioneMov != null && ivaMov != -1){
+                if(idMov != -1 && dataMov != null && causaleMov != null && valoreMov != -1 && descrizioneMov != null && ivaMov != null){
                     Main.log("Aggiunta causale con:");
                     Main.log("ID Movimento: "+idMov);
                     Main.log("Data: "+dataMov);
@@ -205,8 +207,6 @@ public class Movimenti {
                     menu();
                     break;
                 }
-
-            }
         scanner.close();
     }
     }
@@ -228,7 +228,7 @@ public class Movimenti {
         causaleMov = null;
         valoreMov = -1;
         descrizioneMov = null;
-        ivaMov = -1;
+        ivaMov = null;
     }
 
     public static void delete() throws IOException, InterruptedException {
@@ -322,7 +322,7 @@ public class Movimenti {
                             Main.log("Qualcosa non va :/");
                         }
                     } else if(input2.equalsIgnoreCase("descrizione")){
-                        if(input3.length() <= 30 && input3.matches(alphanumericPattern)){
+                        if(input3.length() <= 30 && input3.matches(alphanumericDescPattern)){
                             lineModify[4] = input3;
                         } else {
                             Main.log("Qualcosa non va :/");
